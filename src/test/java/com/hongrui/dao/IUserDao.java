@@ -1,4 +1,4 @@
-package com.hongrui.Dao;
+package com.hongrui.dao;
 
 /**
  * @author hongrui

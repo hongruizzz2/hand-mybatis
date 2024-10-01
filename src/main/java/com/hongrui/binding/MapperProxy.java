@@ -1,5 +1,7 @@
 package com.hongrui.binding;
 
+import com.hongrui.session.SqlSession;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -15,12 +17,10 @@ public class MapperProxy<T> implements InvocationHandler , Serializable {
 
     private static final Long serialVersionUID = 1L;
 
-    // 代理接口
     private final Class<T> mapperInterface;
-    // 会话工厂
-    private Map<String, String> sqlSession = new HashMap<String, String>();
+    private SqlSession sqlSession;
 
-    public MapperProxy(Map<String,String> sqlSession,Class<T> mapperInterface) {
+    public MapperProxy(SqlSession sqlSession,Class<T> mapperInterface) {
         this.mapperInterface = mapperInterface;
         this.sqlSession = sqlSession;
     }
@@ -30,6 +30,6 @@ public class MapperProxy<T> implements InvocationHandler , Serializable {
         if (Object.class.equals(method.getDeclaringClass())) {
             return method.invoke(this, args);
         }
-        return "你被代理了" + sqlSession.get(mapperInterface.getName()) + "-" + method.getName();
+        return sqlSession.selectOne(method.getName(), args);
     }
 }
