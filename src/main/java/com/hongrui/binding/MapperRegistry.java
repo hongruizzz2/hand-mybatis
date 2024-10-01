@@ -1,6 +1,7 @@
 package com.hongrui.binding;
 
 import cn.hutool.core.lang.ClassScanner;
+import com.hongrui.session.Configuration;
 import com.hongrui.session.SqlSession;
 
 import java.util.HashMap;
@@ -13,6 +14,13 @@ import java.util.Set;
  * @date 2024-10-01 20:40
  */
 public class MapperRegistry {
+
+    private Configuration config;
+
+    public MapperRegistry(Configuration config) {
+        this.config = config;
+    }
+
     private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 
 
