@@ -1,5 +1,6 @@
 package com.hongrui;
 
+import com.alibaba.fastjson.JSON;
 import com.hongrui.binding.MapperRegistry;
 import com.hongrui.dao.IUserDao;
 import com.hongrui.io.Resources;
@@ -35,7 +36,21 @@ public class AppTest
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 3. 测试验证
-        String result = userDao.queryUserInfoById("10001");
-        log.info("测试结果：{}", result);
+        User user = userDao.queryUserInfoById(1);
+        log.info("测试结果：{}", user);
+    }
+
+    public void test_SqlSessionFactory() throws IOException {
+        // 1. 从SqlSessionFactory中获取SqlSession
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        // 2. 获取映射器对象
+        IUserDao userDao = sqlSession.getMapper(IUserDao.class);
+
+        // 3. 测试验证
+        User user = userDao.queryUserInfoById(1);
+        log.info("测试结果：{}", JSON.toJSONString(user));
+
     }
 }
