@@ -49,8 +49,9 @@ public class AppTest
         IUserDao userDao = sqlSession.getMapper(IUserDao.class);
 
         // 3. 测试验证
-        User user = userDao.queryUserInfoById(1);
-        log.info("测试结果：{}", JSON.toJSONString(user));
-
+        for (int i = 0; i < 50; i++) {
+            User user = userDao.queryUserInfoById(1);
+            log.info("测试结果：{}", JSON.toJSONString(user));
+        }
     }
 }

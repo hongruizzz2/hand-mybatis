@@ -2,6 +2,8 @@ package com.hongrui.session;
 
 import com.hongrui.binding.MapperRegistry;
 import com.hongrui.datasource.druid.DruidDataSourceFactory;
+import com.hongrui.datasource.pooled.PooledDataSourceFactory;
+import com.hongrui.datasource.unpooled.UnpooledDataSourceFactory;
 import com.hongrui.mapping.Environment;
 import com.hongrui.mapping.MappedStatement;
 import com.hongrui.transaction.jdbc.JdbcTransactionFactory;
@@ -36,6 +38,8 @@ public class Configuration {
     public Configuration() {
         typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
         typeAliasRegistry.registerAlias("DRUID", DruidDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("UNPOOLED", UnpooledDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("POOLED", PooledDataSourceFactory.class);
     }
 
 
