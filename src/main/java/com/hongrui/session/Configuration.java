@@ -4,10 +4,19 @@ import com.hongrui.binding.MapperRegistry;
 import com.hongrui.datasource.druid.DruidDataSourceFactory;
 import com.hongrui.datasource.pooled.PooledDataSourceFactory;
 import com.hongrui.datasource.unpooled.UnpooledDataSourceFactory;
+import com.hongrui.executor.Executor;
+import com.hongrui.executor.SimpleExecutor;
+import com.hongrui.executor.resultset.DefaultResultSetHandler;
+import com.hongrui.executor.resultset.ResultSetHandler;
+import com.hongrui.executor.statement.PreparedStatementHandler;
+import com.hongrui.executor.statement.StatementHandler;
+import com.hongrui.mapping.BoundSql;
 import com.hongrui.mapping.Environment;
 import com.hongrui.mapping.MappedStatement;
+import com.hongrui.transaction.Transaction;
 import com.hongrui.transaction.jdbc.JdbcTransactionFactory;
 import com.hongrui.type.TypeAliasRegistry;
+import sun.plugin2.main.server.ResultHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,6 +86,26 @@ public class Configuration {
 
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+    /**
+     * 创建结果集处理器
+     */
+    public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, BoundSql boundSql) {
+        return new DefaultResultSetHandler(executor, mappedStatement, boundSql);
+    }
+
+    /**
+     * 生产执行器
+     */
+    public Executor newExecutor(Transaction transaction) {
+        return new SimpleExecutor(this, transaction);
+    }
+
+    /**
+     * 创建语句处理器
+     */
+    public StatementHandler newStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameter, ResultHandler resultHandler, BoundSql boundSql) {
+        return new PreparedStatementHandler(executor, mappedStatement, parameter, resultHandler, boundSql);
     }
 
 }
