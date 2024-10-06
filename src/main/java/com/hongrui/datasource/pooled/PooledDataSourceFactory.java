@@ -11,14 +11,7 @@ import javax.sql.DataSource;
  * @date 2024-10-03 21:08
  */
 public class PooledDataSourceFactory extends UnpooledDataSourceFactory {
-    @Override
-    public DataSource getDataSource() {
-        com.hongrui.datasource.pooled.PooledDataSource pooledDataSource = new PooledDataSource();
-        pooledDataSource.setDriver(props.getProperty("driver"));
-        pooledDataSource.setUrl(props.getProperty("url"));
-        pooledDataSource.setUsername(props.getProperty("username"));
-        pooledDataSource.setPassword(props.getProperty("password"));
-        return pooledDataSource;
+    public PooledDataSourceFactory() {
+        this.dataSource = new PooledDataSource();
     }
-
 }
