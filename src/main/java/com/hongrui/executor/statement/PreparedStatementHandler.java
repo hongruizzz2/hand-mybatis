@@ -40,5 +40,4 @@ public class PreparedStatementHandler extends BaseStatementHandler{
         ps.execute();
         return resultSetHandler.<E>handleResultSets(ps);
     }
-
 }

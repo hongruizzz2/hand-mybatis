@@ -25,6 +25,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
         this.configuration = configuration;
     }
 
+
     @Override
     public SqlSession openSession() {
         Transaction tx = null;
@@ -44,6 +45,5 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
             }
             throw new RuntimeException("Error opening session.  Cause: " + e);
         }
-
     }
 }

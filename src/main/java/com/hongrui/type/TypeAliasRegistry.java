@@ -31,9 +31,9 @@ public class TypeAliasRegistry {
         String key = alias.toLowerCase(Locale.ENGLISH);
         TYPE_ALIASES.put(key, value);
     }
+
     public <T> Class<T> resolveAlias(String string) {
         String key = string.toLowerCase(Locale.ENGLISH);
         return (Class<T>) TYPE_ALIASES.get(key);
     }
-
 }
